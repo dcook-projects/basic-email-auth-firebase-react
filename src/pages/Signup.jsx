@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react"
-import { auth, app } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ export default function Signup() {
         const user = userCredential.user;
         localStorage.setItem('token', user.accessToken);
         localStorage.setItem('user', JSON.stringify(user));
-        navigate('/shop');
+        navigate('/');
     }
     catch(error) {
         console.error(error);
@@ -26,9 +26,24 @@ export default function Signup() {
   return (
     <div>
       <h1>Signup</h1>
-      <form onSubmit={handleSubmit} >
-        
+      <form onSubmit={handleSubmit} class-name='signup-form' >
+        <input
+           type='email'
+           placeholder='Email Address'
+           required
+           value={email}
+           onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+           type='password'
+           placeholder='Your Password'
+           required
+           value={password}
+           onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type='submit' className='signup-button'>Signup</button>
       </form>
+      <p>Need to login? <Link to='/login'>Login</Link></p>
     </div>
   )
 }

@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { useState } from 'react'
+import Signup from './pages/Signup.jsx'
+import Login from './pages/Login.jsx'
+import Navbar from './components/Navbar.jsx'
+import Shop from './pages/Shop.jsx'
+import Cart from './pages/Cart.jsx'
+import product1 from './assets/camera lens.jpg'
+import product2 from './assets/camera.jpg'
+import product3 from './assets/lighter.jpg'
+import product4 from './assets/lipstick.jpg'
+import product5 from './assets/sd card.jpg'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cart, setCart] = useState(getDefaultCart());
+
+  function getDefaultCart() {
+    let ca = {}
+    for(let product of PRODUCTS)
+      ca[product.id] = 0;
+
+    return ca;
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Router>
+        <Navbar></Navbar>
+        <Routes>
+          <Route path='/' element={<Shop cart={cart} setCart={setCart} />} />
+          <Route path='/cart' element={<Cart cart={cart} setCart={setCart} />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+        </Routes>
+      </Router>
     </>
   )
 }
 
-export default App
+export const PRODUCTS = [
+  {
+    id: 1,
+    name: "digital camera",
+    file: product1,
+    price: 300.00
+  },
+  {
+    id: 2,
+    name: "digital camera lens",
+    file: product2,
+    price: 79.00
+  },
+  {
+    id: 3,
+    name: "lighter",
+    file: product3,
+    price: 7.99
+  },
+  {
+    id: 4,
+    name: "lipstick",
+    file: product4,
+    price: 25.00
+  },
+  {
+    id: 5,
+    name: "SD card",
+    file: product5,
+    price: 50.00
+  }
+];
+
+export default App;

@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+.Navbar {
+  margin-bottom: 2rem;
+}
+
+img {
+  width: 400px;
+  width: 400px;
+}
+
+.shop {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 5%;
+}

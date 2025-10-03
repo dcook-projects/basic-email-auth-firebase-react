@@ -24,6 +24,7 @@ function CartItem( { data, qty, cart, setCart }) {
   }
 
   return (
+    // Only display if there is a user currently logged in
     <div className="product">
       <img src={file} />
       <h2>{name}</h2>

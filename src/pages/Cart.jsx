@@ -1,14 +1,17 @@
 import { PRODUCTS } from "../App";
 
 export default function Cart({ cart, setCart }) {
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <>
       <h1>Your Cart</h1>
+      {user &&
       <div className="customer-cart">
         {PRODUCTS.filter(product => cart[product.id] > 0).map(product => (
           <CartItem key={product.name} data={product} qty={cart[product.id]} cart={cart} setCart={setCart} />
         ))}
-      </div>
+      </div>}
     </>
   );
 }
